@@ -15,6 +15,51 @@
             background-size: cover;
             color: white;
         }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em; /* Smaller font size for headings */
+            }
+        
+            .menu {
+                padding: 20px 15px; /* Reduce padding for smaller screens */
+            }
+        
+            .menu a {
+                font-size: 1em; /* Smaller text size for buttons */
+                padding: 10px 15px; /* Reduce button size */
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2em; /* Further reduce heading size */
+            }
+        
+            .menu {
+                gap: 10px; /* Reduce gap between buttons */
+            }
+        
+            .menu a {
+                font-size: 0.9em; /* Adjust text size for very small screens */
+                padding: 8px 12px; /* Further reduce button size */
+            }
+        
+            iframe {
+                width: 280px; /* Adjust chatbot size */
+                height: 400px;
+            }
+        }
+        body {
+            background-size: cover; /* Adjust to maintain aspect ratio */
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                background-size: contain; /* Adjust for smaller screens */
+            }
+        }
+        
+        
 
         .container {
             display: flex;
@@ -113,5 +158,6 @@
             <a href="details.html?nutrient=Molybdenum">Molybdenum</a>
         </div>
     </div>
+    <iframe src="chatbot/chatbot.html" width="320" height="480" style="border:none; position: fixed; bottom: 10px; right: 10px; z-index: 1000;"></iframe>
 </body>
 </html>

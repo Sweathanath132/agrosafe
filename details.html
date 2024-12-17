@@ -103,31 +103,6 @@
             transform: scale(1.1); /* Slightly enlarge button on hover */
         }
 
-        .collapsible {
-            background-color: #28a745;
-            color: white;
-            padding: 10px;
-            font-size: 1.1em;
-            border: none;
-            text-align: left;
-            cursor: pointer;
-            width: 100%;
-            margin: 10px 0;
-            transition: background 0.3s;
-        }
-
-        .collapsible:hover {
-            background-color: #218838;
-        }
-
-        .content-collapsible {
-            display: none;
-            padding: 15px;
-            background-color: #f1f1f1;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
         .footer {
             background: rgba(0, 0, 0, 0.7);
             color: white;
@@ -208,28 +183,30 @@
             }
         },
         Potassium: {
-            Antagonism: "Excess potassium inhibits magnesium, calcium, and nitrogen uptake, disrupting nutrient balance. High sodium levels can also interfere with potassium absorption.",
-            Stimulation: "Enhances photosynthesis, water regulation, enzyme activation, and disease resistance. It improves stress tolerance, flowering, and fruit quality.",
-            Functions: "Regulates stomatal opening, water balance, enzyme activation, and carbohydrate transport. It strengthens cell walls and increases plant resilience to stress and diseases.",
-            Deficiency: "Symptoms include yellowing or browning of leaf margins, weak stems, poor fruit quality, and reduced disease resistance.",
-            "Factors affecting availability": "Low soil pH, poor drainage, and high salinity reduce potassium availability. Sandy soils often lack sufficient potassium.",
-            "Sensitive Crops": "High-demand crops include cereals, root crops (potatoes), sugarcane, fruits (bananas), and vegetables. Deficiency impacts yield and quality significantly.",
-            Images: {
-                Deficiency: "https://agritech.tnau.ac.in/horticulture/plant_nutri/images/banana/b_pota1.jpg"
-            }
-        },
-        Calcium: { 
-            Antagonism: "Excess calcium can reduce magnesium, potassium, and phosphorus uptake. High sodium or potassium levels can also inhibit calcium absorption.",
-            Stimulation: "Promotes root and shoot growth, cell division, and cell wall strength. It enhances stress tolerance and resistance to diseases.",
-            Functions: "Essential for cell wall structure, membrane stability, enzyme activity, and root growth. It aids in nutrient transport and overall plant health.",
-            Deficiency: "Symptoms include blossom-end rot in fruits, tip burn in leaves, distorted or brittle new growth, and weak root systems.",
-            "Factors affecting availability": "Low soil pH, poor drainage, and high salinity reduce calcium availability. Sandy soils often lack sufficient calcium.",
-            "Sensitive Crops": "High-demand crops include fruits (tomatoes, apples), leafy vegetables, and legumes. Calcium deficiency severely impacts quality and yield.",
-            Images: {
-                Deficiency: "https://www.canna-uk.com/sites/united_kingdom/files/2021-02/teaser-calcium-deficiency-guide.jpg"
-            }
-        },
-        magnesium:{
+                "Antagonism": "Excess potassium inhibits magnesium, calcium, and nitrogen uptake, disrupting nutrient balance. High sodium levels can also interfere with potassium absorption.",
+                "Stimulation": "Enhances photosynthesis, water regulation, enzyme activation, and disease resistance. It improves stress tolerance, flowering, and fruit quality.",
+                "Functions": "Regulates stomatal opening, water balance, enzyme activation, and carbohydrate transport. It strengthens cell walls and increases crop quality and yield.",
+                "Deficiency": "Yellowing and browning of leaf edges (scorch), weak stems, poor root growth, reduced disease resistance, and lower fruit quality. Symptoms appear first on older leaves.",
+                "Factors affecting availability": "Influenced by soil texture, pH, and cation exchange capacity (CEC). Sandy soils and heavy leaching reduce availability, while clay soils may fix potassium.",
+                "Sensitive Crops": "High-demand crops include cereals, root crops (potatoes), sugarcane, fruits (bananas), and vegetables. Deficiency impacts yield and quality significantly.",
+                "Images": {
+                    "Deficiency": "https://agritech.tnau.ac.in/horticulture/plant_nutri/images/banana/b_pota1.jpg"
+                }
+            },
+            Calcium: { 
+                Antagonism: "Excess calcium can reduce magnesium, potassium, and phosphorus uptake. High sodium or potassium levels can also inhibit calcium absorption.",
+                Stimulation: "Promotes root and shoot growth, cell division, and cell wall strength. It enhances stress tolerance and resistance to diseases.",
+                Functions: "Essential for cell wall structure, membrane stability, enzyme activity, and root growth. It aids in nutrient transport and overall plant health.",
+                Deficiency: "Symptoms include blossom-end rot in fruits, tip burn in leaves, distorted or brittle new growth, and weak root systems.",
+                "Factors affecting availability": "Low soil pH, poor drainage, and high salinity reduce calcium availability. Sandy soils often lack sufficient calcium",
+                "Sensitive Crops": "High-demand crops include fruits (tomatoes, apples), leafy vegetables, and legumes. Calcium deficiency severely impacts quality and yield.",
+                Images: {
+                    
+                    Deficiency: "https://www.canna-uk.com/sites/united_kingdom/files/2021-02/teaser-calcium-deficiency-guide.jpg"
+                     
+                }
+                },
+            Magnesium:{
                 Antagonism: "Excess potassium, calcium, or ammonium reduces magnesium uptake. Imbalances in soil cations disrupt its availability.",
                   Stimulation: "Boosts chlorophyll production, enzyme activation, and carbohydrate metabolism. It enhances photosynthesis and nutrient transport.",
                   Functions: " Essential for chlorophyll synthesis, enzyme activity, and energy transfer in photosynthesis. It supports protein synthesis and phosphorus metabolism.",
@@ -319,6 +296,7 @@
                          
                     }
                     }
+
     };
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -329,12 +307,13 @@
 
         const buttons = Object.keys(deficiencyData[nutrient])
             .filter(key => key !== "Images") // Exclude the 'Images' key
-            .map(key => `<button onclick="showInfo('${key}')">${key}</button>`)
+            .map(key => `<button onclick="showInfo('${nutrient}', '${key}')">${key}</button>`)
             .join('');
         document.getElementById('infoButtons').innerHTML = buttons;
 
         const contentDiv = document.getElementById('infoContent');
-        function showInfo(key) {
+
+        window.showInfo = function(nutrient, key) {
             const data = deficiencyData[nutrient][key];
             if (key === 'Deficiency') { // Show image only for 'Deficiency'
                 contentDiv.innerHTML = `<img src="${deficiencyData[nutrient].Images.Deficiency}" alt="${nutrient} ${key}"><p><strong>${key}:</strong> ${data}</p>`;
@@ -342,7 +321,7 @@
                 contentDiv.innerHTML = `<p><strong>${key}:</strong> ${data}</p>`;
             }
             contentDiv.style.display = 'block'; // Show content
-        }
+        };
     } else {
         document.getElementById('infoContent').innerText = "No data available.";
     }
@@ -361,6 +340,7 @@
         window.scrollTo({top: 0, behavior: 'smooth'});
     }
 </script>
+<iframe src="chatbot/chatbot.html" width="320" height="480" style="border:none; position: fixed; bottom: 10px; right: 10px; z-index: 1000;"></iframe>
 
 </body>
 </html>
